@@ -53,7 +53,7 @@ jobs:
 
       - name: Generate configuration file
         run: |
-                  rm -f ./.config*
+          rm -f ./.config*
           touch ./.config
           cat >> .config <<EOF
           CONFIG_TARGET_x86=y
