@@ -52,7 +52,28 @@ jobs:
           ./scripts/feeds install -a
 
       - name: Generate configuration file
-        run: make defconfig
+        run: |
+                  rm -f ./.config*
+          touch ./.config
+          cat >> .config <<EOF
+          CONFIG_TARGET_x86=y
+          CONFIG_TARGET_x86_64=y
+          CONFIG_TARGET_x86_64_DEVICE_generic=y
+          # CONFIG_PACKAGE_luci-app-accesscontrol is not set
+          # CONFIG_PACKAGE_luci-app-arpbind is not set
+          CONFIG_PACKAGE_luci-app-autoreboot=m
+          CONFIG_PACKAGE_luci-app-ddns=m
+          # CONFIG_PACKAGE_luci-app-filetransfer is not set
+          # CONFIG_PACKAGE_automount is not set
+          # CONFIG_PACKAGE_autosamba is not set
+          CONFIG_PACKAGE_luci-app-frpc=m
+          CONFIG_PACKAGE_luci-app-ipsec-vpnd=m
+          CONFIG_PACKAGE_luci-app-nlbwmon=m
+          CONFIG_PACKAGE_luci-app-ramfree=m
+          CONFIG_PACKAGE_luci-theme-argon=y
+          EOF
+          sed -i 's/^[ \t]*//g' ./.config
+        make defconfig
 
       - name: Make download
         run: |
