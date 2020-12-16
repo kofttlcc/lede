@@ -63,15 +63,21 @@ jobs:
           CONFIG_TARGET_x86_64_DEVICE_generic=y
           # CONFIG_PACKAGE_luci-app-accesscontrol is not set
           # CONFIG_PACKAGE_luci-app-arpbind is not set
-          CONFIG_PACKAGE_luci-app-autoreboot=m
-          CONFIG_PACKAGE_luci-app-ddns=m
+          CONFIG_PACKAGE_luci-app-autoreboot=y
+          CONFIG_PACKAGE_luci-app-ddns=y
+          CONFIG_PACKAGE_luci-app-ttyd=y
+          CONFIG_PACKAGE_luci-app-dnscrypt-proxy=y
           # CONFIG_PACKAGE_luci-app-filetransfer is not set
           # CONFIG_PACKAGE_automount is not set
           # CONFIG_PACKAGE_autosamba is not set
-          CONFIG_PACKAGE_luci-app-frpc=m
-          CONFIG_PACKAGE_luci-app-ipsec-vpnd=m
-          CONFIG_PACKAGE_luci-app-nlbwmon=m
-          CONFIG_PACKAGE_luci-app-ramfree=m
+          # CONFIG_PACKAGE_luci-app-xlnetacc is not set
+          # CONFIG_PACKAGE_luci-app-vsftpd is not set
+          CONFIG_PACKAGE_luci-app-netdata=y
+          # CONFIG_PACKAGE_luci-app-frpc is not set
+          CONFIG_PACKAGE_luci-app-ipsec-vpnd=y
+          CONFIG_PACKAGE_luci-app-wireguard=y
+          CONFIG_PACKAGE_luci-app-nlbwmon=y
+          CONFIG_PACKAGE_luci-app-ramfree=y
           CONFIG_PACKAGE_luci-theme-argon=y
           EOF
           sed -i 's/^[ \t]*//g' ./.config
