@@ -74,9 +74,8 @@ jobs:
           # CONFIG_PACKAGE_luci-app-vsftpd is not set
           CONFIG_PACKAGE_luci-app-netdata=y
           # CONFIG_PACKAGE_luci-app-frpc is not set
-          CONFIG_PACKAGE_luci-app-ipsec-vpnd=y
-          CONFIG_PACKAGE_Network/VPN/xl2tpd=y
-          CONFIG_PACKAGE_Network/VPN/strongswan=y
+          # CONFIG_PACKAGE_luci-app-ipsec-vpnd is not set
+          # CONFIG_PACKAGE_luci-app-zerotier is not set
           CONFIG_PACKAGE_luci-app-wireguard=y
           CONFIG_PACKAGE_luci-app-nlbwmon=y
           CONFIG_PACKAGE_luci-app-ramfree=y
