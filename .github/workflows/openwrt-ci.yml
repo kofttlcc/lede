@@ -62,7 +62,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-autoreboot=y
           CONFIG_PACKAGE_luci-app-ddns=y
           CONFIG_PACKAGE_luci-app-ttyd=y
-          #CONFIG_PACKAGE_luci-app-dnscrypt-proxy is not set
+          # CONFIG_PACKAGE_luci-app-dnscrypt-proxy is not set
           # CONFIG_PACKAGE_luci-app-filetransfer is not set
           # CONFIG_PACKAGE_automount is not set
           # CONFIG_PACKAGE_autosamba is not set
