@@ -356,6 +356,14 @@ define Device/firefly_firewrt
 endef
 TARGET_DEVICES += firefly_firewrt
 
+define Device/glinet_gl-mt1300
+  IMAGE_SIZE := 32448k
+  DEVICE_VENDOR := GL.iNet
+  DEVICE_MODEL := GL-MT1300
+  DEVICE_PACKAGES := kmod-usb3  kmod-mt7615d_dbdc
+endef
+TARGET_DEVICES += glinet_gl-mt1300
+
 define Device/gehua_ghl-r-001
   IMAGE_SIZE := 32448k
   DEVICE_VENDOR := GeHua
@@ -499,6 +507,22 @@ define Device/jcg_jhr-ac876m
   DEVICE_PACKAGES := kmod-mt7615e kmod-mt7615-firmware kmod-usb3 kmod-usb-ledtrig-usbport wpad-openssl
 endef
 TARGET_DEVICES += jcg_jhr-ac876m
+
+define Device/jcg_q20
+  BLOCKSIZE := 128k
+  PAGESIZE := 2048
+  UBINIZE_OPTS := -E 5
+  KERNEL_SIZE := 4096k
+  IMAGE_SIZE := 91136k
+  IMAGES += factory.bin
+  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
+  IMAGE/factory.bin := append-kernel | pad-to $$(KERNEL_SIZE) | append-ubi | \
+	check-size
+  DEVICE_VENDOR := JCG
+  DEVICE_MODEL := Q20
+  DEVICE_PACKAGES := kmod-mt7915e wpad-openssl uboot-envtools
+endef
+TARGET_DEVICES += jcg_q20
 
 define Device/jcg_y2
   $(Device/uimage-lzma-loader)
@@ -822,10 +846,12 @@ endef
 TARGET_DEVICES += phicomm_k2p
 
 define Device/phicomm_k2p-32m
-  $(Device/phicomm_k2p)
   IMAGE_SIZE := 32128k
+  DEVICE_VENDOR := Phicomm
+  DEVICE_MODEL := K2P
   DEVICE_VARIANT := 32M
   SUPPORTED_DEVICES += k2p-32M
+  DEVICE_PACKAGES := kmod-mt7615d_dbdc
 endef
 TARGET_DEVICES += phicomm_k2p-32m
 
@@ -1055,8 +1081,6 @@ define Device/xiaomi_mir4
   IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
   DEVICE_VENDOR := Xiaomi
   DEVICE_MODEL := Mi Router 4
-  SUPPORTED_DEVICES += R4
-  SUPPORTED_DEVICES += mir4
   DEVICE_PACKAGES := kmod-mt7603e kmod-mt76x2e luci-app-mtwifi uboot-envtools
 endef
 TARGET_DEVICES += xiaomi_mir4
@@ -1082,6 +1106,22 @@ define Device/xiaomi_mi-router-ac2100
   DEVICE_MODEL := Mi Router AC2100
 endef
 TARGET_DEVICES += xiaomi_mi-router-ac2100
+
+define Device/xiaomi_mi-router-cr6606
+  $(Device/uimage-lzma-loader)
+  BLOCKSIZE := 128k
+  PAGESIZE := 2048
+  UBINIZE_OPTS := -E 5
+  KERNEL_SIZE := 4096k
+  IMAGE_SIZE := 128512k
+  IMAGES += factory.bin
+  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
+  IMAGE/factory.bin := append-kernel | pad-to $$(KERNEL_SIZE) | append-ubi | check-size
+  DEVICE_VENDOR := Xiaomi
+  DEVICE_MODEL := Mi Router CR6606
+  DEVICE_PACKAGES += kmod-mt7915e wpad-openssl uboot-envtools
+endef
+TARGET_DEVICES += xiaomi_mi-router-cr6606
 
 define Device/xiaomi_redmi-router-ac2100
   $(Device/xiaomi-ac2100)
