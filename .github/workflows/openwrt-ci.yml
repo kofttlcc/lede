@@ -57,21 +57,21 @@ jobs:
           CONFIG_TARGET_x86=y
           CONFIG_TARGET_x86_64=y
           CONFIG_TARGET_x86_64_DEVICE_generic=y
-          # CONFIG_PACKAGE_luci-app-accesscontrol is not set
-          # CONFIG_PACKAGE_luci-app-arpbind is not set
+          CONFIG_PACKAGE_luci-app-accesscontrol is not set
+          CONFIG_PACKAGE_luci-app-arpbind is not set
           CONFIG_PACKAGE_luci-app-autoreboot=y
           CONFIG_PACKAGE_luci-app-ddns=y
           CONFIG_PACKAGE_luci-app-ttyd=y
-          # CONFIG_PACKAGE_luci-app-dnscrypt-proxy is not set
-          # CONFIG_PACKAGE_luci-app-filetransfer is not set
-          # CONFIG_PACKAGE_automount is not set
-          # CONFIG_PACKAGE_autosamba is not set
-          # CONFIG_PACKAGE_luci-app-xlnetacc is not set
-          # CONFIG_PACKAGE_luci-app-vsftpd is not set
+          CONFIG_PACKAGE_luci-app-dnscrypt-proxy is not set
+          CONFIG_PACKAGE_luci-app-filetransfer is not set
+          CONFIG_PACKAGE_automount is not set
+          CONFIG_PACKAGE_autosamba is not set
+          CONFIG_PACKAGE_luci-app-xlnetacc is not set
+          CONFIG_PACKAGE_luci-app-vsftpd is not set
           CONFIG_PACKAGE_luci-app-netdata=y
-          # CONFIG_PACKAGE_luci-app-frpc is not set
-          # CONFIG_PACKAGE_luci-app-ipsec-vpnd is not set
-          # CONFIG_PACKAGE_luci-app-zerotier is not set
+          CONFIG_PACKAGE_luci-app-frpc is not set
+          CONFIG_PACKAGE_luci-app-ipsec-vpnd is not set
+          CONFIG_PACKAGE_luci-app-zerotier is not set
           CONFIG_PACKAGE_luci-app-wireguard=y
           CONFIG_PACKAGE_luci-app-nlbwmon=y
           CONFIG_PACKAGE_luci-app-ramfree=y
