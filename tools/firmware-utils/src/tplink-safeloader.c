@@ -659,6 +659,50 @@ static struct device_info boards[] = {
 		.last_sysupgrade_partition = "support-list",
 	},
 
+	/** Firmware layout for the AD7200 */
+	{
+		.id = "AD7200",
+		.vendor = "",
+		.support_list =
+			"SupportList:\r\n"
+			"{product_name:AD7200,product_ver:1.0.0,special_id:00000000}\r\n",
+		.part_trail = 0x00,
+		.soft_ver = NULL,
+
+		.partitions = {
+			{"SBL1", 0x00000, 0x20000},
+			{"MIBIB", 0x20000, 0x20000},
+			{"SBL2", 0x40000, 0x20000},
+			{"SBL3", 0x60000, 0x30000},
+			{"DDRCONFIG", 0x90000, 0x10000},
+			{"SSD", 0xa0000, 0x10000},
+			{"TZ", 0xb0000, 0x30000},
+			{"RPM", 0xe0000, 0x20000},
+			{"fs-uboot", 0x100000, 0x70000},
+			{"uboot-env", 0x170000, 0x40000},
+			{"radio", 0x1b0000, 0x40000},
+			{"os-image", 0x1f0000, 0x400000},
+			{"file-system", 0x5f0000, 0x1900000},
+			{"default-mac", 0x1ef0000, 0x00200},
+			{"pin", 0x1ef0200, 0x00200},
+			{"device-id", 0x1ef0400, 0x00200},
+			{"product-info", 0x1ef0600, 0x0fa00},
+			{"partition-table", 0x1f00000, 0x10000},
+			{"soft-version", 0x1f10000, 0x10000},
+			{"support-list", 0x1f20000, 0x10000},
+			{"profile", 0x1f30000, 0x10000},
+			{"default-config", 0x1f40000, 0x10000},
+			{"user-config", 0x1f50000, 0x40000},
+			{"qos-db", 0x1f90000, 0x40000},
+			{"usb-config", 0x1fd0000, 0x10000},
+			{"log", 0x1fe0000, 0x20000},
+			{NULL, 0, 0}
+		},
+
+		.first_sysupgrade_partition = "os-image",
+		.last_sysupgrade_partition = "file-system"
+	},
+
 	/** Firmware layout for the C2600 */
 	{
 		.id     = "C2600",
@@ -2330,6 +2374,46 @@ static struct device_info boards[] = {
 			"{product_name:RE450,product_ver:3.0.0,special_id:41530000}\r\n"
 			"{product_name:RE450,product_ver:3.0.0,special_id:4B520000}\r\n"
 			"{product_name:RE450,product_ver:3.0.0,special_id:42520000}\r\n",
+		.part_trail = 0x00,
+		.soft_ver = NULL,
+
+		/* We're using a dynamic kernel/rootfs split here */
+		.partitions = {
+			{"fs-uboot", 0x00000, 0x20000},
+			{"default-mac", 0x20000, 0x00020},
+			{"pin", 0x20020, 0x00020},
+			{"product-info", 0x21000, 0x01000},
+			{"partition-table", 0x22000, 0x02000},
+			{"soft-version", 0x24000, 0x01000},
+			{"support-list", 0x25000, 0x01000},
+			{"profile", 0x26000, 0x08000},
+			{"user-config", 0x2e000, 0x10000},
+			{"default-config", 0x3e000, 0x10000},
+			{"config-info", 0x4e000, 0x00400},
+			{"firmware", 0x50000, 0x7a0000},
+			{"radio", 0x7f0000, 0x10000},
+			{NULL, 0, 0}
+		},
+
+		.first_sysupgrade_partition = "os-image",
+		.last_sysupgrade_partition = "file-system"
+	},
+
+	/** Firmware layout for the RE455 v1 */
+	{
+		.id     = "RE455-V1",
+		.vendor = "",
+		.support_list =
+			"SupportList:\r\n"
+			"{product_name:RE455,product_ver:1.0.0,special_id:00000000}\r\n"
+			"{product_name:RE455,product_ver:1.0.0,special_id:55530000}\r\n"
+			"{product_name:RE455,product_ver:1.0.0,special_id:45550000}\r\n"
+			"{product_name:RE455,product_ver:1.0.0,special_id:4A500000}\r\n"
+			"{product_name:RE455,product_ver:1.0.0,special_id:43410000}\r\n"
+			"{product_name:RE455,product_ver:1.0.0,special_id:41550000}\r\n"
+			"{product_name:RE455,product_ver:1.0.0,special_id:41530000}\r\n"
+			"{product_name:RE455,product_ver:1.0.0,special_id:4B520000}\r\n"
+			"{product_name:RE455,product_ver:1.0.0,special_id:42520000}\r\n",
 		.part_trail = 0x00,
 		.soft_ver = NULL,
 

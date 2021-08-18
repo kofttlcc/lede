@@ -48,15 +48,6 @@ _PROCD_SERVICE=
 procd_lock() {
 	local basescript=$(readlink "$initscript")
 	local service_name="$(basename ${basescript:-$initscript})"
-
-	flock -n 1000 &> /dev/null
-	if [ "$?" != "0" ]; then
-		exec 1000>"$IPKG_INSTROOT/var/lock/procd_${service_name}.lock"
-		flock 1000
-		if [ "$?" != "0" ]; then
-			logger "warning: procd flock for $service_name failed"
-		fi
-	fi
 }
 
 _procd_call() {
@@ -329,6 +320,82 @@ _procd_add_config_trigger() {
 	json_close_array
 }
 
+_procd_add_mount_trigger() {
+	json_add_array
+	_procd_add_array_data "$1"
+	local action="$2"
+	local multi=0
+	shift ; shift
+
+	json_add_array
+	_procd_add_array_data "if"
+
+	if [ "$2" ]; then
+		json_add_array
+		_procd_add_array_data "or"
+		multi=1
+	fi
+
+	while [ "$1" ]; do
+		json_add_array
+		_procd_add_array_data "eq" "target" "$1"
+		shift
+		json_close_array
+	done
+
+	[ $multi = 1 ] && json_close_array
+
+	json_add_array
+	_procd_add_array_data "run_script" /etc/init.d/$name $action
+	json_close_array
+
+	json_close_array
+	_procd_add_timeout
+	json_close_array
+}
+
+_procd_add_action_mount_trigger() {
+	local script=$(readlink "$initscript")
+	local name=$(basename ${script:-$initscript})
+	local action="$1"
+	local mpath
+	shift
+
+	_procd_open_trigger
+	_procd_add_mount_trigger mount.add $action "$@"
+	_procd_close_trigger
+}
+
+procd_get_mountpoints() {
+	(
+		__procd_check_mount() {
+			local cfg="$1"
+			local path="${2%%/}/"
+			local target
+			config_get target "$cfg" target
+			target="${target%%/}/"
+			[ "$path" != "${path##$target}" ] && echo "${target%%/}"
+		}
+
+		config_load fstab
+		for mpath in "$@"; do
+			config_foreach __procd_check_mount mount "$mpath"
+		done
+	) | sort -u
+}
+
+_procd_add_restart_mount_trigger() {
+	local mountpoints="$(procd_get_mountpoints "$@")"
+	[ "${mountpoints//[[:space:]]}" ] &&
+		_procd_add_action_mount_trigger restart $mountpoints
+}
+
+_procd_add_reload_mount_trigger() {
+	local mountpoints="$(procd_get_mountpoints "$@")"
+	[ "${mountpoints//[[:space:]]}" ] &&
+		_procd_add_action_mount_trigger reload $mountpoints
+}
+
 _procd_add_raw_trigger() {
 	json_add_array
 	_procd_add_array_data "$1"
@@ -560,8 +627,11 @@ _procd_wrapper \
 	procd_add_raw_trigger \
 	procd_add_config_trigger \
 	procd_add_interface_trigger \
+	procd_add_mount_trigger \
 	procd_add_reload_trigger \
 	procd_add_reload_interface_trigger \
+	procd_add_reload_mount_trigger \
+	procd_add_restart_mount_trigger \
 	procd_open_trigger \
 	procd_close_trigger \
 	procd_open_instance \
