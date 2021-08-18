@@ -1,3 +1,4 @@
+#include <dt-bindings/mtd/partitions/uimage.h>
 #include "qca9558_domywifi_dw33d.dts"
 
 / {

@@ -8,13 +8,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=procd
-PKG_RELEASE:=1
+PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL=$(PROJECT_GIT)/project/procd.git
-PKG_SOURCE_DATE:=2020-11-06
-PKG_SOURCE_VERSION:=b0de894830a93da5b303a3d89a42baf163d0a58c
-PKG_MIRROR_HASH:=ba7f7631fa74d3bede0241f5d96ee4939f15164e79290d1ac7fd15fc8ed628d9
+PKG_SOURCE_DATE:=2021-08-15
+PKG_SOURCE_VERSION:=104b49d6ab25a8cf067e6d8d1f2da7defb9876d4
+PKG_MIRROR_HASH:=d13b566a14e84f6babe8b7d3dfb88e34c3dff0e97d7770d6fe71174685bca628
 CMAKE_INSTALL:=1
 
 PKG_LICENSE:=GPL-2.0
@@ -45,7 +45,7 @@ define Package/procd/Default
   SECTION:=base
   CATEGORY:=Base system
   DEPENDS:=+ubusd +ubus +libjson-script +ubox +USE_GLIBC:librt +libubox \
-	  +libubus +libblobmsg-json +libjson-c
+	  +libubus +libblobmsg-json +libjson-c +jshn
   TITLE:=OpenWrt system process manager
   USERID:=:dialout=20 :audio=29
 endef
@@ -82,7 +82,7 @@ endef
 define Package/procd-seccomp
   SECTION:=base
   CATEGORY:=Base system
-  DEPENDS:=@(arm||armeb||mips||mipsel||i386||powerpc||x86_64) @!TARGET_uml \
+  DEPENDS:=@(aarch64||arm||armeb||mips||mipsel||i386||powerpc||x86_64) @!TARGET_uml \
 	  @KERNEL_SECCOMP +libubox +libblobmsg-json
   TITLE:=OpenWrt process seccomp helper + utrace
 endef
@@ -90,7 +90,7 @@ endef
 define Package/uxc
   SECTION:=base
   CATEGORY:=Base system
-  DEPENDS:=+procd-ujail +libubus +libubox +libblobmsg-json
+  DEPENDS:=+procd-ujail +libubus +libubox +libblobmsg-json +blockd +rpcd
   TITLE:=OpenWrt container management
   MAINTAINER:=Daniel Golle <daniel@makrotopia.org>
 endef
