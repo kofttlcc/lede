@@ -10,6 +10,7 @@ platform_check_image() {
 
 platform_do_upgrade() {
 	case "$(board_name)" in
+	arris,rac2v1a |\
 	askey,rt4230w-rev6 |\
 	askey,rt4230w-rev9.3 |\
 	compex,wpq864 |\
@@ -60,6 +61,9 @@ platform_do_upgrade() {
 		PART_NAME="kernel:rootfs"
 		MTD_CONFIG_ARGS="-s 0x200000"
 		default_do_upgrade "$1"
+		;;
+	norton,core-518)
+		norton_do_upgrade "$1"
 		;;
 	ruijie,rg-mtfi-m520)
 		ruijie_do_upgrade "$1"
